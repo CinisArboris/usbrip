@@ -1,3 +1,0 @@
-termcolor
-terminaltables
-tqdm

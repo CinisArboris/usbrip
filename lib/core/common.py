@@ -35,7 +35,7 @@ from collections import OrderedDict
 
 from termcolor import colored, cprint
 
-import usbrip.lib.core.config as cfg
+import lib.core.config as cfg
 from usbrip import __version__
 
 
@@ -65,12 +65,12 @@ SEPARATOR = '\u2212'  # '−', U_MINUS_SIGN
 VERSION = __version__
 SITE = __site__
 
-VERSION_FORMATTED = '\033[0m\033[1;37m{\033[1;34mv%s\033[1;37m}\033[0m' % VERSION
-SITE_FORMATTED = '\033[0m\033[4;37m%s\033[0m' % SITE
+VERSION_FORMATTED = ''
+SITE_FORMATTED = ''
 
-BANNER = '''\033[1;33m\
+BANNER = '''
                        
-         _     {{4}}    %s\033[1;33m
+         _     {{4}}    %s
  _ _ ___| |_ ___[+]___ 
 | | |_ -| . |  _[*] . |
 |___|___|___|_| [?]  _|
@@ -84,7 +84,7 @@ S = ('S', 's', '5')
 I = ('I', 'i', '1', '!')
 
 E,N,S,I = list(map(lambda x: random.choice(x), (E,N,S,I)))
-E,N,S,I = list(map(lambda x: colored(x, 'green', 'on_blue') + '\033[1;33m', (E,N,S,I)))
+E,N,S,I = list(map(lambda x: colored(x, 'green', 'on_blue') + '', (E,N,S,I)))
 
 BANNER = BANNER.replace('+', E, 1)
 BANNER = BANNER.replace('*', N, 1)

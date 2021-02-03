@@ -96,8 +96,6 @@ def build_ue_parser(subparsers):
 
 
 # ------------------- USB Events History -------------------
-
-
 def build_ueh_parser(subparsers):
     ueh_parser = subparsers.add_parser(
         'history',
@@ -113,8 +111,6 @@ def build_ueh_parser(subparsers):
 
 
 # -------------------- USB Events Open ---------------------
-
-
 def build_ueo_parser(subparsers):
     ueo_parser = subparsers.add_parser(
         'open',
@@ -136,8 +132,6 @@ def build_ueo_parser(subparsers):
 
 
 # ------------------ USB Events GenAuth -------------------
-
-
 def build_ueg_parser(subparsers):
     ueg_parser = subparsers.add_parser(
         'genauth',
@@ -148,7 +142,7 @@ def build_ueg_parser(subparsers):
         'output',
         type=str,
         nargs='?',
-        default='/var/opt/usbrip/trusted/auth.json',
+        default='trusted/auth.json',
         help='output path for the list of authorized devices'
     )
 
@@ -169,8 +163,6 @@ def build_ueg_parser(subparsers):
 
 
 # ----------------- USB Events Violations ------------------
-
-
 def build_uev_parser(subparsers):
     uev_parser = subparsers.add_parser(
         'violations',
@@ -184,7 +176,7 @@ def build_uev_parser(subparsers):
         'input',
         type=str,
         nargs='?',
-        default='/var/opt/usbrip/trusted/auth.json',
+        default='trusted/auth.json',
         help='input path for the list of authorized devices'
     )
 
@@ -209,8 +201,6 @@ def build_uev_parser(subparsers):
 # ----------------------------------------------------------
 # ---------------------- USB Storage -----------------------
 # ----------------------------------------------------------
-
-
 def build_us_parser(subparsers):
     us_parser = subparsers.add_parser(
         'storage',
@@ -227,8 +217,6 @@ def build_us_parser(subparsers):
 
 
 # -------------------- USB Storage List --------------------
-
-
 def build_usl_parser(subparsers):
     usl_parser = subparsers.add_parser(
         'list',
@@ -241,8 +229,6 @@ def build_usl_parser(subparsers):
 
 
 # -------------------- USB Storage Open --------------------
-
-
 def build_uso_parser(subparsers):
     uso_parser = subparsers.add_parser(
         'open',
@@ -258,8 +244,6 @@ def build_uso_parser(subparsers):
 
 
 # ------------------- USB Storage Update -------------------
-
-
 def build_usu_parser(subparsers):
     usu_parser = subparsers.add_parser(
         'update',
@@ -286,7 +270,7 @@ def build_usu_parser(subparsers):
         'input',
         type=str,
         nargs='?',
-        default='/var/opt/usbrip/trusted/auth.json',
+        default='trusted/auth.json',
         help='input path for the list of authorized devices'
     )
 
@@ -321,14 +305,12 @@ def build_usc_parser(subparsers):
         'input',
         type=str,
         nargs='?',
-        default='/var/opt/usbrip/trusted/auth.json',
+        default='trusted/auth.json',
         help='input path for the list of authorized devices'
     )
 
 
 # ------------------- USB Storage Passwd -------------------
-
-
 def build_usp_parser(subparsers):
     usp_parser = subparsers.add_parser(
         'passwd',
@@ -359,13 +341,11 @@ def build_ui_parser(subparsers):
 
 
 # --------------------- USB IDs Search ---------------------
-
-
 def build_uis_parser(subparsers):
     uis_parser = subparsers.add_parser(
         'search',
         help=f'search by VID and/or PID; '
-             f'ids database path is "{os.path.abspath(str(Path.home()))}/.config/usbrip/usb.ids"'
+             f'ids database path is "usb_ids/usb.ids"'
     )
 
     _parse_debug_args(uis_parser)
@@ -393,13 +373,11 @@ def build_uis_parser(subparsers):
 
 
 # -------------------- USB IDs Download --------------------
-
-
 def build_uid_parser(subparsers):
     uid_parser = subparsers.add_parser(
         'download',
         help=f'download/update database; '
-             f'ids database path is "{os.path.abspath(str(Path.home()))}/.config/usbrip/usb.ids"'
+             f'ids database path is "usbrip/usb.ids"'
     )
 
     _parse_debug_args(uid_parser)

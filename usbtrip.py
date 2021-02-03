@@ -31,18 +31,19 @@ __brief__  = 'usbrip project\'s driver program'
 
 import os
 import sys
+import getpass
 
-import usbrip.lib.core.config as cfg; cfg.DEBUG = '--debug' in sys.argv
-import usbrip.lib.utils.timing as timing
-from usbrip.lib.core.usbevents import USBEvents
-from usbrip.lib.core.usbstorage import USBStorage
-from usbrip.lib.core.usbids import USBIDs
-from usbrip.lib.core.common import BANNER
-from usbrip.lib.core.common import COLUMN_NAMES
-from usbrip.lib.core.common import print_critical
-from usbrip.lib.core.common import USBRipError
-from usbrip.lib.parse.argparser import get_arg_parser
-from usbrip.lib.parse.configparser import get_config_parser
+import lib.core.config as cfg; cfg.DEBUG = '--debug' in sys.argv
+import lib.utils.timing as timing
+from lib.core.usbevents import USBEvents
+from lib.core.usbstorage import USBStorage
+from lib.core.usbids import USBIDs
+from lib.core.common import BANNER
+from lib.core.common import COLUMN_NAMES
+from lib.core.common import print_critical
+from lib.core.common import USBRipError
+from lib.parse.argparser import get_arg_parser
+from lib.parse.configparser import get_config_parser
 
 
 # ----------------------------------------------------------
@@ -51,6 +52,7 @@ from usbrip.lib.parse.configparser import get_config_parser
 
 
 def main():
+
 	if not len(sys.argv) > 1:
 		print(BANNER + '\n')
 		usbrip_arg_error()
@@ -66,10 +68,6 @@ def main():
 	else:
 		cfg.QUIET = True
 
-	# ----------------------------------------------------------
-	# ------------------------- Banner -------------------------
-	# ----------------------------------------------------------
-
 	if args.subparser == 'banner':
 		print(BANNER)
 
@@ -78,8 +76,12 @@ def main():
 	# ----------------------------------------------------------
 
 	elif args.subparser == 'events' and args.ue_subparser:
-		if (args.ue_subparser == 'genauth' or args.ue_subparser == 'violations') and os.geteuid() != 0:
-			sys.exit('Permission denied. Retry with sudo')
+		if (
+			args.ue_subparser == 'genauth' or
+			args.ue_subparser == 'violations'
+			) and False:
+			#and getpass.getuser() != 0:
+			sys.exit('Permiso denegado. Retry with sudo')
 
 		sieve, repres = validate_ue_args(args)
 
@@ -401,7 +403,5 @@ def _validate_vid_pid_args(args):
 # ----------------------------------------------------------
 # -------------------------- RUN ---------------------------
 # ----------------------------------------------------------
-
-
 if __name__ == '__main__':
     main()

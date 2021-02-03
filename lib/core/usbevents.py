@@ -326,12 +326,12 @@ class USBEvents:
 def _get_filtered_history():
 	filtered_history = []
 
-	print_info('Searching for log files: "/var/log/syslog*" or "/var/log/messages*"')
+	print_info('Searching for log files: C:\\Users\\eyver-dev\\Documents\\python\\usbrip\\test\\syslog* or C:\\Users\\eyver-dev\\Documents\\python\\usbrip\\test\\messages*')
 
 	syslog_files = sorted([
 		filename
-		for filename in list_files('/var/log/')
-		if filename.rsplit('/', 1)[1].startswith('syslog')
+		for filename in list_files('C:\\Users\\eyver-dev\\Documents\\python\\usbrip\\test')
+		if filename.rsplit('\\', 1)[1].startswith('syslog')
 	])
 
 	if syslog_files:

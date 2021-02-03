@@ -76,7 +76,7 @@ class USBIDs:
 	@staticmethod
 	@time_it_if_debug(cfg.DEBUG, time_it)
 	def prepare_database(*, offline=True):
-		filename = f'{os.path.abspath(str(Path.home()))}/.config/usbrip/usb.ids'
+		filename = f'usbrip/usb.ids'
 		file_exists = os.path.isfile(filename)
 
 		if file_exists and offline:
@@ -156,18 +156,17 @@ def _update_database(filename):
 
 def _download_database(filename):
 	try:
-		dirname = os.path.dirname(filename)
-		os_makedirs(dirname)
+		os_makedirs('usb_ids')
 	except USBRipError as e:
 		raise USBRipError(str(e), errors={'initial_error': e.errors['initial_error']})
 	else:
-		print_info(f'Created directory "{dirname}/"')
+		print_info(f'Created directory "usb_ids"')
 
 	try:
-		usb_ids = open(filename, 'w+', encoding='utf-8')
+		usb_ids = open('usb_ids/usb.ids', 'w+', encoding='utf-8')
 	except PermissionError as e:
 		raise USBRipError(
-			f'Permission denied: "{filename}"',
+			f'Permission denied: "usb_ids"',
 			errors={'initial_error': str(e)}
 		)
 
