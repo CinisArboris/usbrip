@@ -71,26 +71,10 @@ Quick Start
 ~$ usbrip --help
 ```
 
-**Way 2.** Install bleeding-edge with [`install.sh`](#manual-installation) (recommended, extra features available):
-
-```
-~$ sudo apt install python3-venv p7zip-full -y
-~$ git clone https://github.com/snovvcrash/usbrip.git ~/usbrip && cd ~/usbrip
-~/usbrip$ sudo -H installers/install.sh
-~/usbrip$ cd
-~$ usbrip --help
-```
-
 Showcase
 ==========
 
 ![screenshot.png](https://user-images.githubusercontent.com/23141800/86020391-89201880-ba30-11ea-902d-9d17feb6e79b.png)
-
-[**Docker**](https://hub.docker.com/r/snovvcrash/usbrip) (\*DEMO ONLY!\*)
-
-```
-~$ docker run --rm -it snovvcrash/usbrip
-```
 
 Dependencies
 ==========
@@ -124,26 +108,6 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 ~$ sudo rm -f /var/log/syslog* /var/log/messages*
 ```
 
-4. Restart the service:
-
-```
-~$ sudo systemctl restart rsyslog
-```
-
-Firstly, usbrip will check if there is a chance to dump system events using `journalctl` as the most portable option. If not – it will search for and parse `/var/log/syslog*` and `/var/log/messages*` system log files.
-
-## DEB Packages
-
-* python3.6 (or newer);
-* python3-venv;
-* p7zip-full (used by `storages` module).
-
-## pip Packages
-
-* [terminaltables](https://github.com/Robpol86/terminaltables "Robpol86/terminaltables: Generate simple tables in terminals from a nested list of strings.")
-* [termcolor](https://pypi.org/project/termcolor "termcolor · PyPI")
-* [tqdm](https://github.com/tqdm/tqdm "tqdm/tqdm: A Fast, Extensible Progress Bar for Python and CLI")
-
 Manual installation
 ==========
 
@@ -155,30 +119,6 @@ For simplicity, lets agree that all the commands where `~/usbrip$` prefix is app
 ~$ git clone https://github.com/snovvcrash/usbrip.git usbrip && cd usbrip
 ```
 
-## `install.sh`
-
-Besides installing with pip, usbrip can also be installed with custom [`installers/install.sh`](https://github.com/snovvcrash/usbrip/blob/master/installers/install.sh) script.
-
-When using `install.sh` some extra features become available:
-
-* the virtual environment is created automatically;
-* the `storage` module becomes available: you can set a crontab job to backup USB events on a schedule (the example of crontab jobs can be found in [`usbrip/cron/usbrip.cron`](https://github.com/snovvcrash/usbrip/blob/master/usbrip/cron/usbrip.cron)).
-
-:warning: **Warning:** if you are using the crontab scheduling, you want to configure the cron job with `sudo crontab -e` in order to force the `storage update` submodule run as root. The storage passwords are kept in `/var/opt/usbrip/usbrip.ini` and accessible by root only by default.
-
-To install usbrip use:
-
-```
-~/usbrip$ sudo -H installers/install.sh [-l/--local] [-s/--storages]
-~/usbrip$ cd
-~$ usbrip --help
-```
-
-* When `-l` switch is enabled, Python dependencies are resolved from local `.tar` packages (`./3rdPartyTools/`) instead of PyPI.
-* When `-s` switch is enabled, not only the usbrip project is installed, but also the list of trusted USB devices, history and violations storages are created.
-
-After the installation completes, feel free to remove the `~/usbrip` directory.
-
 ### Paths
 
 When installed with `install.sh`, the usbrip uses the following paths:
@@ -189,31 +129,6 @@ When installed with `install.sh`, the usbrip uses the following paths:
 * `/var/opt/usbrip/trusted/` – list of trusted USB devices (`auth.json`, created during the installation process);
 * `/var/opt/usbrip/usbrip.ini` – usbrip configuration file (contains passwords for 7-Zip storages);
 * `/usr/local/bin/usbrip` – symlink to the `/opt/usbrip/venv/bin/usbrip` script.
-
-### cron
-
-Cron jobs can be set as follows:
-
-```
-~/usbrip$ sudo crontab -l > tmpcron && echo "" >> tmpcron
-~/usbrip$ cat usbrip/cron/usbrip.cron | tee -a tmpcron
-~/usbrip$ sudo crontab tmpcron
-~/usbrip$ rm tmpcron
-```
-
-### `uninstall.sh`
-
-The [`installers/uninstall.sh`](https://github.com/snovvcrash/usbrip/blob/master/installers/uninstall.sh) script removes usbrip and all the installation artifacts from your system.
-
-To uninstall usbrip use:
-
-```
-~/usbrip$ sudo installers/uninstall.sh [-a/--all]
-```
-
-* When `-a` switch is enabled, not only the usbrip project directory is deleted, but also all the storages and usbrip logs are deleted too.
-
-Don't forget to remove the cron job if you had set up one.
 
 Usage
 ==========
